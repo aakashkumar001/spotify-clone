@@ -1,8 +1,10 @@
-import MediaItem from "./MediaItem";
-import { AiFillStepBackward, AiFillStepForward, AiOutlineHeart } from "react-icons/ai";
+import { AiFillStepBackward, AiFillStepForward } from "react-icons/ai";
 import { HiSpeakerWave } from "react-icons/hi2";
 import { BsPlayFill } from "react-icons/bs";
+
+import MediaItem from "./MediaItem";
 import Slider from "./Slider";
+import LikeButton from "./LikeButton";
 
 const data = {
   name: 'Liked Songs',
@@ -11,14 +13,14 @@ const data = {
 }
 
 const Player = () => {
-  return ( 
+  return (
     <div className="fixed bottom-0 bg-black w-full py-2 h-[80px] px-4">
       <div className="grid grid-cols-1 md:grid-cols-3">
 
         <div className="hidden md:flex w-full justify-start">
           <div className="flex items-center gap-x-4">
             <MediaItem {...data} />
-            <AiOutlineHeart size={25} />
+            <LikeButton />
           </div>
         </div>
 
@@ -36,7 +38,7 @@ const Player = () => {
             <div className="text-xs text-neutral-400">2:21</div>
           </div>
         </div>
-        
+
         <div className="hidden md:flex w-full justify-end pr-2">
           <div className="flex items-center gap-x-2 w-[120px]">
             <HiSpeakerWave className="cursor-pointer" size={25} />
@@ -46,7 +48,7 @@ const Player = () => {
 
       </div>
     </div>
-   );
+  );
 }
- 
+
 export default Player;

@@ -1,6 +1,7 @@
 import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
 import ListItem from "./components/ListItem";
 import SongItem from "./components/SongItem";
+import Header from "../components/Header";
 
 const list = [
   {
@@ -59,26 +60,16 @@ const songs = [
 export default function Home() {
   return (
     <div className="bg-neutral-900 rounded-lg h-full w-full overflow-hidden overflow-y-auto">
-      <div className="h-fit bg-gradient-to-b from-emerald-800 p-6">
-        <div className="w-full mb-4">
-          <div className="flex gap-x-2 items-center">
-            <div className="rounded-full bg-black flex items-center justify-center cursor-pointer hover:opacity-75 transition">
-              <RxCaretLeft className="text-white" size={35} />
-            </div>
-            <div className="rounded-full bg-black flex items-center justify-center cursor-pointer hover:opacity-75 transition">
-              <RxCaretRight className="text-white" size={35} />
-            </div>
-          </div>
-        </div>
+      <Header>
         <div className="mb-2">
           <h1 className="text-white text-3xl font-semibold">Welcome back</h1>
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 mt-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-3 mt-4">
             {list.map((item) => (
               <ListItem key={item.name} {...item} />
             ))}
           </div>
         </div>
-      </div>
+      </Header>
       <div className="mb-7 px-6">
         <div className="flex justify-between items-center">
           <h1 className="text-white text-2xl font-semibold">Newest songs</h1>
@@ -101,6 +92,6 @@ export default function Home() {
           ))}
         </div>
       </div>
-    </div>
+    </div >
   )
 }
