@@ -8,12 +8,25 @@ import useLoginModal from "@/app/hooks/useLoginModal";
 
 import Input from './Input';
 import Button from './Button';
+import { useSupabase } from '../providers/SupabaseProvider';
 
 const LoginModal = () => {
   const loginModal = useLoginModal();
+  const { supabase, session } = useSupabase();
 
   const onChange = (open: boolean) => {
     if (!open) {
+      loginModal.onClose();
+    }
+  }
+
+  const onSubmit = async () => {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: 'erdeljac.antonio@gmail.com',
+      password: '123321',
+    });
+
+    if (!error) {
       loginModal.onClose();
     }
   }
@@ -54,7 +67,7 @@ const LoginModal = () => {
             <Input placeholder="Email" />
             <Input type="password" placeholder="Password" />
           </div>
-          <Button>Login</Button>
+          <Button onClick={onSubmit}>Login</Button>
           <Dialog.Close asChild>
             <button
               className="
