@@ -2,8 +2,9 @@
 
 import { TbPlaylist } from "react-icons/tb";
 import { AiOutlinePlus } from "react-icons/ai";
-import MediaItem from "./MediaItem";
 import { useRouter } from "next/navigation";
+
+import MediaItem from "./MediaItem";
 
 const list = [
   {

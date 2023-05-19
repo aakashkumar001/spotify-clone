@@ -1,5 +1,6 @@
 import { HiHome } from "react-icons/hi";
 import { BiSearch } from "react-icons/bi";
+
 import SidebarItem from "./SidebarItem";
 import Box from "./Box";
 import Library from "./Library";

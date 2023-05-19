@@ -1,98 +1,112 @@
 "use client";
 
-import React from 'react';
-import * as Dialog from '@radix-ui/react-dialog';
-import { IoMdClose } from 'react-icons/io';
+import React, { useState } from 'react';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
 
 import useLoginModal from "@/app/hooks/useLoginModal";
+import useForgotModal from '@/app/hooks/useForgotModal';
+import { useSupabase } from '@/app/providers/SupabaseProvider';
 
 import Input from './Input';
+import Modal from './Modal';
 import Button from './Button';
-import { useSupabase } from '../providers/SupabaseProvider';
 
 const LoginModal = () => {
   const loginModal = useLoginModal();
-  const { supabase, session } = useSupabase();
+  const forgotModal = useForgotModal();
+  const { supabase } = useSupabase();
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const {
+    handleSubmit,
+    register,
+    reset,
+  } = useForm<FieldValues>({
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  });
 
   const onChange = (open: boolean) => {
     if (!open) {
+      reset();
+      setIsLoading(false);
       loginModal.onClose();
     }
   }
 
-  const onSubmit = async () => {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email: 'erdeljac.antonio@gmail.com',
-      password: '123321',
+  const onSubmit: SubmitHandler<FieldValues> = async (values) => {
+    setIsLoading(true);
+
+    const { error } = await supabase.auth.signInWithPassword({
+      email: values.email,
+      password: values.password,
     });
 
-    if (!error) {
-      loginModal.onClose();
+    if (error) {
+      setIsLoading(false);
+      return toast.error(error.message);
     }
+
+    toast.success('Logged in.')
+    loginModal.onClose();
+
+    setIsLoading(false);
+  }
+
+  const onForgot = () => {
+    reset();
+    setIsLoading(false);
+    forgotModal.onOpen();
+    loginModal.onClose();
   }
 
   return (
-    <Dialog.Root open={loginModal.isOpen} defaultOpen={loginModal.isOpen} onOpenChange={onChange}>
-      <Dialog.Portal>
-        <Dialog.Overlay className="bg-neutral-900/90 backdrop-blur-sm fixed inset-0" />
-        <Dialog.Content
+    <Modal 
+      title="Welcome back" 
+      description="Login to your account." 
+      isOpen={loginModal.isOpen} 
+      onChange={onChange} 
+    >
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="flex flex-col gap-y-4">
+          <Input
+            id="email"
+            type="email" 
+            placeholder="Email"
+            disabled={isLoading}
+            {...register('email', { required: true })} 
+          />
+          <Input
+            id="password"
+            type="password" 
+            placeholder="Password"
+            disabled={isLoading}
+            {...register('password', { required: true })}
+          />
+        </div>
+        <Button
+          disabled={isLoading}
+          onClick={onForgot}
           className="
-            fixed 
-            drop-shadow-md 
-            border 
-            border-neutral-700 
-            top-[50%] 
-            left-[50%] 
-            max-h-full 
-            h-full 
-            md:h-auto 
-            md:max-h-[85vh] 
-            w-full 
-            md:w-[90vw] 
-            md:max-w-[450px] 
-            translate-x-[-50%] 
-            translate-y-[-50%] 
-            rounded-md 
-            bg-neutral-800 
-            p-[25px] 
-            focus:outline-none
-          ">
-          <Dialog.Title className="text-xl text-center font-bold mb-4">
-            Welcome back
-          </Dialog.Title>
-          <Dialog.Description className="mb-5 text-sm leading-normal text-center">
-            Login to your account.
-          </Dialog.Description>
-          <div className="flex flex-col gap-y-4 mb-8">
-            <Input placeholder="Email" />
-            <Input type="password" placeholder="Password" />
-          </div>
-          <Button onClick={onSubmit}>Login</Button>
-          <Dialog.Close asChild>
-            <button
-              className="
-                text-neutral-400 
-                hover:text-white 
-                absolute 
-                top-[10px] 
-                right-[10px] 
-                inline-flex 
-                h-[25px] 
-                w-[25px] 
-                appearance-none 
-                items-center 
-                justify-center 
-                rounded-full 
-                focus:outline-none
-              "
-              aria-label="Close"
-            >
-              <IoMdClose />
-            </button>
-          </Dialog.Close>
-        </Dialog.Content>
-      </Dialog.Portal>
-    </Dialog.Root>
+            mb-4
+            text-xs
+            bg-transparent
+            text-neutral-400
+            font-normal
+            hover:text-white
+          "
+        >
+          Forgot password?
+        </Button>
+        <Button disabled={isLoading} type="submit">
+          Login
+        </Button>
+      </form>
+    </Modal>
   );
 }
 

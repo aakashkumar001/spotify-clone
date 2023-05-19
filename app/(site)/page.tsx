@@ -1,7 +1,8 @@
-import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
+import Header from "@/app/components/Header";
+
 import ListItem from "./components/ListItem";
 import SongItem from "./components/SongItem";
-import Header from "../components/Header";
+
 
 const list = [
   {

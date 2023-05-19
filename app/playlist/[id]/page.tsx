@@ -1,8 +1,8 @@
+import Image from "next/image";
+
 import Header from "@/app/components/Header";
 import LikeButton from "@/app/components/LikeButton";
 import Playlist from "@/app/components/MediaItem";
-import Image from "next/image";
-import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
 
 const data = {
   name: 'Liked Songs',

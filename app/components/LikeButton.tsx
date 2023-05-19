@@ -4,7 +4,7 @@ import { twMerge } from "tailwind-merge";
 const isFavorite = true;
 
 const LikeButton = () => {
-  const Icon = isFavorite ? AiFillHeart : LikeButton;
+  const Icon = isFavorite ? AiFillHeart : AiOutlineHeart;
 
   return (
     <div className={twMerge(`

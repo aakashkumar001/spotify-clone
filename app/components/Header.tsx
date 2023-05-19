@@ -1,14 +1,14 @@
 "use client";
 
+import { twMerge } from "tailwind-merge";
 import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
+import { useRouter } from "next/navigation";
 
 import useRegisterModal from '@/app/hooks/useRegisterModal';
-import useLoginModal from "../hooks/useLoginModal";
+import useLoginModal from "@/app/hooks/useLoginModal";
+import { useSupabase } from "@/app/providers/SupabaseProvider";
 
 import Button from "./Button";
-import { twMerge } from "tailwind-merge";
-import { useSupabase } from "../providers/SupabaseProvider";
-import { useRouter } from "next/navigation";
 
 interface HeaderProps {
   children: React.ReactNode;

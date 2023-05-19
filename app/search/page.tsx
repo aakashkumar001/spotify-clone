@@ -1,8 +1,7 @@
 import Playlist from "@/app/components/MediaItem";
-import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
-import LikeButton from "../components/LikeButton";
-import Input from "../components/Input";
-import Header from "../components/Header";
+import LikeButton from "@/app/components/LikeButton";
+import Input from "@/app/components/Input";
+import Header from "@/app/components/Header";
 
 const data = {
   name: 'Liked Songs',
