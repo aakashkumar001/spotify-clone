@@ -6,7 +6,6 @@ import { ThemeSupa } from '@supabase/auth-ui-shared';
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
 
 import useAuthModal from "@/hooks/useAuthModal";
-import { getURL } from '@/libs/helpers';
 
 import Modal from './Modal';
 
@@ -31,7 +30,6 @@ const AuthModal = () => {
       <Auth
         supabaseClient={supabaseClient}
         providers={['github']}
-        redirectTo={getURL()}
         magicLink={true}
         appearance={{
           theme: ThemeSupa,

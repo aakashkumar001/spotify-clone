@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { toast } from 'react-hot-toast';
 
 import useSubscribeModal from '@/hooks/useSubscribeModal';
 import { useUser } from '@/hooks/useUser';
@@ -45,11 +46,13 @@ const SubscribeModal: React.FC<SubscribeModalProps> = ({
   const handleCheckout = async (price: Price) => {
     setPriceIdLoading(price.id);
     if (!user) {
-      return;
+      setPriceIdLoading(undefined);
+      return toast.error('Must be logged in');
     }
 
     if (subscription) {
-      return;
+      setPriceIdLoading(undefined);
+      return toast('Already subscribed');
     }
 
     try {
@@ -61,7 +64,7 @@ const SubscribeModal: React.FC<SubscribeModalProps> = ({
       const stripe = await getStripe();
       stripe?.redirectToCheckout({ sessionId });
     } catch (error) {
-      return alert((error as Error)?.message);
+      return toast.error((error as Error)?.message);
     } finally {
       setPriceIdLoading(undefined);
     }

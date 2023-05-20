@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { FaPlay } from "react-icons/fa";
+import PlayButton from "./PlayButton";
 
 interface SongItemProps {
   image?: string;
@@ -33,25 +34,11 @@ const SongItem: React.FC<SongItemProps> = ({
       <div 
         className="
           absolute 
-          transition 
-          opacity-0 
-          rounded-full 
-          flex 
-          items-center 
-          justify-center 
-          bg-green-500 
-          p-4 
-          drop-shadow-md 
           bottom-24 
           right-5
-          translate
-          translate-y-1/4
-          group-hover:opacity-100 
-          group-hover:translate-y-0
-          hover:scale-110
         "
       >
-        <FaPlay className="text-black" />
+        <PlayButton />
       </div>
     </div>
    );
