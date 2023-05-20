@@ -13,9 +13,9 @@ const list = [
     author: 'Antonio'
   },
   {
-    name: 'champagne & coke',
-    image: "https://i.scdn.co/image/ab67706c0000f8e481bcb4ae4198afa5a6135ff0",
-    author: 'Ilke Kartal'
+    name: 'Random Access Memories',
+    image: "https://i.scdn.co/image/ab67616d00001a9d9b9b36b0e22870b9f542d937",
+    author: 'Daft Punk'
   },
   {
     name: 'My Playlist #1',
@@ -24,7 +24,7 @@ const list = [
 ]
 
 const Library = () => {
-  const router= useRouter();
+  const router = useRouter();
 
   return ( 
     <div className="flex flex-col">

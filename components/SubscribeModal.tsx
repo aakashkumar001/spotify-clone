@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { toast } from 'react-hot-toast';
 
 import useSubscribeModal from '@/hooks/useSubscribeModal';
@@ -31,7 +30,6 @@ const formatPrice = (price: Price) => {
 const SubscribeModal: React.FC<SubscribeModalProps> = ({
   products
 }) => {
-  const router = useRouter();
   const subscribeModal = useSubscribeModal();
   const { user, isLoading, subscription } = useUser();
 
