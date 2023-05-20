@@ -5,8 +5,8 @@ import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
 import { useRouter } from "next/navigation";
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
 
-import useAuthModal from "@/app/hooks/useAuthModal";
-import { useUser } from "@/app/hooks/useUser";
+import useAuthModal from "@/hooks/useAuthModal";
+import { useUser } from "@/hooks/useUser";
 
 import Button from "./Button";
 

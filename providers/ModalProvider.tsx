@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 
-import AuthModal from "@/app/components/AuthModal";
-import SubscribeModal from "@/app/components/SubscribeModal";
+import AuthModal from "@/components/AuthModal";
+import SubscribeModal from "@/components/SubscribeModal";
 import { ProductWithPrice } from "@/types";
 
 interface ModalProviderProps {

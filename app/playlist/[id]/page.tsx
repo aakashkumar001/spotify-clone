@@ -1,8 +1,8 @@
 import Image from "next/image";
 
-import Header from "@/app/components/Header";
-import LikeButton from "@/app/components/LikeButton";
-import Playlist from "@/app/components/MediaItem";
+import Header from "@/components/Header";
+import LikeButton from "@/components/LikeButton";
+import Playlist from "@/components/MediaItem";
 
 const data = {
   name: 'Liked Songs',

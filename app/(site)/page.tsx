@@ -1,8 +1,7 @@
-import Header from "@/app/components/Header";
+import Header from "@/components/Header";
 
-import ListItem from "./components/ListItem";
-import SongItem from "./components/SongItem";
-
+import ListItem from "@/components/ListItem";
+import SongItem from "@/components/SongItem";
 
 const list = [
   {

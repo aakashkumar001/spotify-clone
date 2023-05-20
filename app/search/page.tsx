@@ -1,7 +1,7 @@
-import Playlist from "@/app/components/MediaItem";
-import LikeButton from "@/app/components/LikeButton";
-import Input from "@/app/components/Input";
-import Header from "@/app/components/Header";
+import Playlist from "@/components/MediaItem";
+import LikeButton from "@/components/LikeButton";
+import Input from "@/components/Input";
+import Header from "@/components/Header";
 
 const data = {
   name: 'Liked Songs',

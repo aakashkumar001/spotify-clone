@@ -1,9 +1,9 @@
 import { NextApiHandler } from 'next';
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
 
-import { stripe } from '@/app/libs/stripe';
-import { createOrRetrieveCustomer } from '@/app/libs/supabaseAdmin';
-import { getURL } from '@/app/libs/helpers';
+import { stripe } from '@/libs/stripe';
+import { createOrRetrieveCustomer } from '@/libs/supabaseAdmin';
+import { getURL } from '@/libs/helpers';
 
 const CreatePortalLink: NextApiHandler = async (req, res) => {
   if (req.method === 'POST') {
