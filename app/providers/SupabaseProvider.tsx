@@ -1,34 +1,27 @@
-'use client';
+"use client";
 
-import { createContext, useContext, useState } from 'react';
-import type { Session, SupabaseClient } from '@supabase/auth-helpers-nextjs';
+import { useState } from "react";
+import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
+import { SessionContextProvider } from "@supabase/auth-helpers-react";
 
-import { createBrowserClient } from '@/app/libs/supabaseClient';
+import { Database } from "@/types_db";
 
-type MaybeSession = Session | null;
-
-type SupabaseContext = {
-  supabase: SupabaseClient;
-  session: MaybeSession;
+interface SupabaseProviderProps {
+  children: React.ReactNode;
 };
 
-// @ts-ignore
-const Context = createContext<SupabaseContext>();
+const SupabaseProvider: React.FC<SupabaseProviderProps> = ({
+  children
+}) => {
+    const [supabaseClient] = useState(() =>
+    createBrowserSupabaseClient<Database>()
+  );
 
-export default function SupabaseProvider({
-  children,
-  session
-}: {
-  children: React.ReactNode;
-  session: MaybeSession;
-}) {
-  const [supabase] = useState(() => createBrowserClient());
-
-  return (
-    <Context.Provider value={{ supabase, session }}>
-      <>{children}</>
-    </Context.Provider>
+  return ( 
+    <SessionContextProvider supabaseClient={supabaseClient}>
+      {children}
+    </SessionContextProvider>
   );
 }
-
-export const useSupabase = () => useContext(Context);
+ 
+export default SupabaseProvider;

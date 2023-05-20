@@ -2,11 +2,17 @@
 
 import { useEffect, useState } from "react";
 
-import RegisterModal from "@/app/components/RegisterModal";
-import LoginModal from "@/app/components/LoginModal";
-import ForgotModal from "@/app/components/ForgotModal";
+import AuthModal from "@/app/components/AuthModal";
+import SubscribeModal from "@/app/components/SubscribeModal";
+import { ProductWithPrice } from "@/types";
 
-const ModalProvider = () => {
+interface ModalProviderProps {
+  products: ProductWithPrice[];
+}
+
+const ModalProvider: React.FC<ModalProviderProps> = ({
+  products
+}) => {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -19,9 +25,8 @@ const ModalProvider = () => {
 
   return (
     <>
-      <RegisterModal />
-      <LoginModal />
-      <ForgotModal />
+      <AuthModal />
+      <SubscribeModal products={products} />
     </>
   );
 }

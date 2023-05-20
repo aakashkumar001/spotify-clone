@@ -1,15 +1,15 @@
 import { create } from 'zustand';
 
-interface ForgotModalStore {
+interface AuthModalStore {
   isOpen: boolean;
   onOpen: () => void;
   onClose: () => void;
 }
 
-const useForgotModal = create<ForgotModalStore>((set) => ({
+const useAuthModal = create<AuthModalStore>((set) => ({
   isOpen: false,
   onOpen: () => set({ isOpen: true }),
   onClose: () => set({ isOpen: false }),
 }));
 
-export default useForgotModal;
+export default useAuthModal;

@@ -3,10 +3,10 @@
 import { twMerge } from "tailwind-merge";
 import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
 import { useRouter } from "next/navigation";
+import { useSupabaseClient } from '@supabase/auth-helpers-react';
 
-import useRegisterModal from '@/app/hooks/useRegisterModal';
-import useLoginModal from "@/app/hooks/useLoginModal";
-import { useSupabase } from "@/app/providers/SupabaseProvider";
+import useAuthModal from "@/app/hooks/useAuthModal";
+import { useUser } from "@/app/hooks/useUser";
 
 import Button from "./Button";
 
@@ -20,13 +20,13 @@ const Header: React.FC<HeaderProps> = ({
   className,
 }) => {
   const router = useRouter();
-  const registerModal = useRegisterModal();
-  const loginModal = useLoginModal();
+  const authModal = useAuthModal();
 
-  const { supabase, session } = useSupabase();
+  const supabaseClient = useSupabaseClient();
+  const { user } = useUser();
 
   const handleLogout = async () => {
-    const { error } = await supabase.auth.signOut();
+    const { error } = await supabaseClient.auth.signOut();
 
     if (error) {
       console.log(error);
@@ -53,19 +53,19 @@ const Header: React.FC<HeaderProps> = ({
           </div>
         </div>
         <div className="flex justify-between items-center gap-x-4">
-          {session ? (
+          {user ? (
             <Button onClick={handleLogout} className="bg-white px-6 py-2">
               Logout
             </Button>
           ) : (
             <>
               <div>
-                <Button onClick={registerModal.onOpen} className="bg-transparent text-neutral-300 font-medium">
+                <Button onClick={authModal.onOpen} className="bg-transparent text-neutral-300 font-medium">
                   Sign up
                 </Button>
               </div>
               <div>
-                <Button onClick={loginModal.onOpen} className="bg-white px-6 py-2">
+                <Button onClick={authModal.onOpen} className="bg-white px-6 py-2">
                   Log in
                 </Button>
               </div>
