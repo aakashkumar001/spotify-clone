@@ -20,3 +20,15 @@ export const getActiveProductsWithPrices = async (): Promise<ProductWithPrice[]>
 
   return (data as any) || [];
 }
+
+export const getSongs = async (): Promise<any> => {
+  const { data, error } = await supabase
+    .from('songs')
+    .select('*')
+
+  if (error) {
+    console.log(error.message);
+  }
+
+  return (data as any) || [];
+};

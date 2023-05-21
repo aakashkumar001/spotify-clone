@@ -5,9 +5,17 @@ import { FaPlay } from "react-icons/fa";
 import { useUser } from "@/hooks/useUser";
 import useAuthModal from "@/hooks/useAuthModal";
 import useSubscribeModal from "@/hooks/useSubscribeModal";
+import { Song } from "@/types";
+import usePlayer from "@/hooks/usePlayer";
 
+interface PlayButtonProps {
+  data: Song
+}
 
-const PlayButton = () => {
+const PlayButton: React.FC<PlayButtonProps> = ({
+  data
+}) => {
+  const player = usePlayer();
   const authModal = useAuthModal();
   const subscribeModal = useSubscribeModal();
   const { user, isLoading, subscription } = useUser();
@@ -21,7 +29,7 @@ const PlayButton = () => {
       return subscribeModal.onOpen();
     }
 
-    return;
+    player.setSong(data);
   }
 
   return ( 

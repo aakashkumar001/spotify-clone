@@ -2,25 +2,26 @@
 
 import Image from "next/image";
 
+import useLoadImage from "@/hooks/useLoadImage";
+import { Song } from "@/types";
+
 interface MediaItemProps {
-  name: string;
-  image?: string;
-  author: string;
+  data: Song;
   onClick?: (id: string) => void;
 }
 
 const MediaItem: React.FC<MediaItemProps> = ({
-  name,
-  image,
-  author,
+  data,
   onClick
 }) => {
+  const imageUrl = useLoadImage(data);
+
   const handleClick = () => {
     if (!onClick) {
       return null;
     }
 
-    return onClick(name);
+    return onClick(data.title);
   };
 
   return ( 
@@ -48,14 +49,14 @@ const MediaItem: React.FC<MediaItemProps> = ({
       >
         <Image
           fill
-          src={image || "/images/music-placeholder.png"}
+          src={imageUrl || "/images/music-placeholder.png"}
           alt="MediaItem"
           className="object-cover"
         />
       </div>
       <div className="flex flex-col gap-y-1 overflow-hidden">
-        <p className="text-white truncate">{name}</p>
-        <p className="text-neutral-400 text-sm truncate">By {author}</p>
+        <p className="text-white truncate">{data.title}</p>
+        <p className="text-neutral-400 text-sm truncate">By {data.author}</p>
       </div>
     </div>
   );

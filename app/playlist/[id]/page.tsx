@@ -5,9 +5,12 @@ import LikeButton from "@/components/LikeButton";
 import Playlist from "@/components/MediaItem";
 
 const data = {
-  name: 'Liked Songs',
-  image: "https://misc.scdn.co/liked-songs/liked-songs-64.png",
-  author: 'Antonio'
+  title: 'Liked Songs',
+  image_path: "https://misc.scdn.co/liked-songs/liked-songs-64.png",
+  author: 'Antonio',
+  id: 'test',
+  song_path: '123',
+  user_id: '123'
 }
 
 const PlaylistId = () => {
@@ -34,43 +37,7 @@ const PlaylistId = () => {
       </Header>
       <div className="flex flex-col gap-y-2 w-full p-6">
         <div className="flex items-center gap-x-4 w-full">
-          <div className="flex-1"><Playlist {...data} /></div>
-          <div><LikeButton /></div>
-        </div>
-        <div className="flex items-center gap-x-4 w-full">
-          <div className="flex-1"><Playlist {...data} /></div>
-          <div><LikeButton /></div>
-        </div>
-        <div className="flex items-center gap-x-4 w-full">
-          <div className="flex-1"><Playlist {...data} /></div>
-          <div><LikeButton /></div>
-        </div>
-        <div className="flex items-center gap-x-4 w-full">
-          <div className="flex-1"><Playlist {...data} /></div>
-          <div><LikeButton /></div>
-        </div>
-        <div className="flex items-center gap-x-4 w-full">
-          <div className="flex-1"><Playlist {...data} /></div>
-          <div><LikeButton /></div>
-        </div>
-        <div className="flex items-center gap-x-4 w-full">
-          <div className="flex-1"><Playlist {...data} /></div>
-          <div><LikeButton /></div>
-        </div>
-        <div className="flex items-center gap-x-4 w-full">
-          <div className="flex-1"><Playlist {...data} /></div>
-          <div><LikeButton /></div>
-        </div>
-        <div className="flex items-center gap-x-4 w-full">
-          <div className="flex-1"><Playlist {...data} /></div>
-          <div><LikeButton /></div>
-        </div>
-        <div className="flex items-center gap-x-4 w-full">
-          <div className="flex-1"><Playlist {...data} /></div>
-          <div><LikeButton /></div>
-        </div>
-        <div className="flex items-center gap-x-4 w-full">
-          <div className="flex-1"><Playlist {...data} /></div>
+          <div className="flex-1"><Playlist data={data} /></div>
           <div><LikeButton /></div>
         </div>
       </div>

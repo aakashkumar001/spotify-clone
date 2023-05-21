@@ -21,6 +21,7 @@
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",
     "autoprefixer": "10.4.14",
+    "axios": "^1.4.0",
     "eslint": "8.40.0",
     "eslint-config-next": "13.4.1",
     "next": "13.4.1",
@@ -34,10 +35,12 @@
     "tailwind-merge": "^1.12.0",
     "tailwindcss": "3.3.2",
     "typescript": "5.0.4",
+    "uniqid": "^5.4.0",
     "use-sound": "^4.0.1",
     "zustand": "^4.3.8"
   },
   "devDependencies": {
+    "@types/uniqid": "^5.3.2",
     "supabase": "^1.62.3"
   }
 }

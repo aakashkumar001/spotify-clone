@@ -90,6 +90,35 @@ export interface Database {
           name?: string | null
         }
       }
+      songs: {
+        Row: {
+          author: string | null
+          created_at: string | null
+          id: number
+          image_path: string | null
+          song_path: string | null
+          title: string | null
+          user_id: string | null
+        }
+        Insert: {
+          author?: string | null
+          created_at?: string | null
+          id?: number
+          image_path?: string | null
+          song_path?: string | null
+          title?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          author?: string | null
+          created_at?: string | null
+          id?: number
+          image_path?: string | null
+          song_path?: string | null
+          title?: string | null
+          user_id?: string | null
+        }
+      }
       subscriptions: {
         Row: {
           cancel_at: string | null
@@ -177,6 +206,7 @@ export interface Database {
       pricing_plan_interval: "day" | "week" | "month" | "year"
       pricing_type: "one_time" | "recurring"
       subscription_status:
+        | "paused"
         | "trialing"
         | "active"
         | "canceled"
@@ -184,7 +214,6 @@ export interface Database {
         | "incomplete_expired"
         | "past_due"
         | "unpaid"
-        | "paused"
     }
     CompositeTypes: {
       [_ in never]: never

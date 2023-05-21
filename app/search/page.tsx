@@ -2,14 +2,14 @@ import Playlist from "@/components/MediaItem";
 import LikeButton from "@/components/LikeButton";
 import Input from "@/components/Input";
 import Header from "@/components/Header";
+import { getSongs } from "@/libs/supabaseClient";
+import { Song } from "@/types";
 
-const data = {
-  name: 'Liked Songs',
-  image: "https://misc.scdn.co/liked-songs/liked-songs-64.png",
-  author: 'Antonio'
-}
+export const revalidate = 0;
 
-const Search = () => {
+const Search = async () => {
+  const songs = await getSongs();
+
   return (
     <div className="bg-neutral-900 rounded-lg h-full w-full overflow-hidden overflow-y-auto">
       <Header className="from-bg-neutral-900">
@@ -19,46 +19,12 @@ const Search = () => {
         </div>
       </Header>
       <div className="flex flex-col gap-y-2 w-full px-6">
-        <div className="flex items-center gap-x-4 w-full">
-          <div className="flex-1"><Playlist {...data} /></div>
-          <div><LikeButton /></div>
-        </div>
-        <div className="flex items-center gap-x-4 w-full">
-          <div className="flex-1"><Playlist {...data} /></div>
-          <div><LikeButton /></div>
-        </div>
-        <div className="flex items-center gap-x-4 w-full">
-          <div className="flex-1"><Playlist {...data} /></div>
-          <div><LikeButton /></div>
-        </div>
-        <div className="flex items-center gap-x-4 w-full">
-          <div className="flex-1"><Playlist {...data} /></div>
-          <div><LikeButton /></div>
-        </div>
-        <div className="flex items-center gap-x-4 w-full">
-          <div className="flex-1"><Playlist {...data} /></div>
-          <div><LikeButton /></div>
-        </div>
-        <div className="flex items-center gap-x-4 w-full">
-          <div className="flex-1"><Playlist {...data} /></div>
-          <div><LikeButton /></div>
-        </div>
-        <div className="flex items-center gap-x-4 w-full">
-          <div className="flex-1"><Playlist {...data} /></div>
-          <div><LikeButton /></div>
-        </div>
-        <div className="flex items-center gap-x-4 w-full">
-          <div className="flex-1"><Playlist {...data} /></div>
-          <div><LikeButton /></div>
-        </div>
-        <div className="flex items-center gap-x-4 w-full">
-          <div className="flex-1"><Playlist {...data} /></div>
-          <div><LikeButton /></div>
-        </div>
-        <div className="flex items-center gap-x-4 w-full">
-          <div className="flex-1"><Playlist {...data} /></div>
-          <div><LikeButton /></div>
-        </div>
+        {songs.map((song: Song) => (
+          <div key={song.id} className="flex items-center gap-x-4 w-full">
+            <div className="flex-1"><Playlist data={song} /></div>
+            <div><LikeButton /></div>
+          </div>
+        ))}
       </div>
     </div>
   );
