@@ -1,6 +1,10 @@
+"use client";
+
+import useSound from "use-sound";
+import { useState } from "react";
 import { AiFillStepBackward, AiFillStepForward } from "react-icons/ai";
-import { HiSpeakerWave } from "react-icons/hi2";
-import { BsPlayFill } from "react-icons/bs";
+import { HiSpeakerWave, HiSpeakerXMark } from "react-icons/hi2";
+import { BsPlayFill, BsPauseFill } from "react-icons/bs";
 
 import MediaItem from "./MediaItem";
 import Slider from "./Slider";
@@ -13,8 +17,51 @@ const data = {
 }
 
 const Player = () => {
+  const [volume, setVolume] = useState(1);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const [play, { pause }] = useSound(
+    'https://tbvswgcbrilqlaxdsxii.supabase.co/storage/v1/object/sign/songs/song.mp3?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzb25ncy9zb25nLm1wMyIsImlhdCI6MTY4NDYzMTE2OSwiZXhwIjoxNjg1MjM1OTY5fQ.H9MYFFVGao-YUPb-E4a7F3tbjZoaAxXSYNsyk7ExytU&t=2023-05-21T01%3A06%3A09.716Z',
+    { 
+      volume: volume,
+      // interrupt: true,
+      onplay: () => setIsPlaying(true),
+      onend: () => setIsPlaying(false),
+      onpause: () => setIsPlaying(false),
+    }
+  );
+
+  const handlePlay = () => {
+    if (!isPlaying) {
+      play();
+    } else {
+      pause();
+    }
+  }
+
+  const toggleMute = () => {
+    if (volume === 0) {
+      setVolume(1);
+    } else {
+      setVolume(0);
+    }
+  }
+
+  const Icon = isPlaying ? BsPauseFill : BsPlayFill;
+  const VolumeIcon = volume === 0 ? HiSpeakerXMark : HiSpeakerWave;
+
   return (
-    <div className="fixed bottom-0 bg-black w-full py-2 h-[80px] px-4">
+    <div 
+      className="
+        fixed 
+        bottom-0 
+        bg-black 
+        w-full 
+        py-2 
+        h-[80px] 
+        px-4
+      "
+    >
       <div className="grid grid-cols-1 md:grid-cols-3">
 
         <div className="hidden md:flex w-full justify-start">
@@ -24,25 +71,61 @@ const Player = () => {
           </div>
         </div>
 
-        <div className="flex flex-col items-center gap-y-2 w-full max-w-[722px]">
-          <div className="flex items-center gap-x-6">
-            <AiFillStepBackward size={26} className="text-neutral-400 cursor-pointer hover:text-white transition" />
-            <div className="flex items-center justify-center rounded-full bg-white p-1 cursor-pointer">
-              <BsPlayFill size={24} className="text-black" />
-            </div>
-            <AiFillStepForward size={26} className="text-neutral-400 cursor-pointer hover:text-white transition" />
+        <div 
+          className="
+            flex 
+            justify-center 
+            items-center 
+            w-full 
+            max-w-[722px] 
+            gap-x-6
+          "
+        >
+          <AiFillStepBackward 
+            size={30} 
+            className="
+              text-neutral-400 
+              cursor-pointer 
+              hover:text-white 
+              transition
+            "
+          />
+          <div 
+            onClick={handlePlay} 
+            className="
+              flex 
+              items-center 
+              justify-center 
+              rounded-full 
+              bg-white 
+              p-1 
+              cursor-pointer
+            "
+          >
+            <Icon size={30} className="text-black" />
           </div>
-          <div className="flex items-center w-full gap-x-2">
-            <div className="text-xs text-neutral-400">00:53</div>
-            <Slider />
-            <div className="text-xs text-neutral-400">2:21</div>
-          </div>
+          <AiFillStepForward 
+            size={30} 
+            className="
+              text-neutral-400 
+              cursor-pointer 
+              hover:text-white 
+              transition
+            " 
+          />
         </div>
 
         <div className="hidden md:flex w-full justify-end pr-2">
           <div className="flex items-center gap-x-2 w-[120px]">
-            <HiSpeakerWave className="cursor-pointer" size={25} />
-            <Slider />
+            <VolumeIcon 
+              onClick={toggleMute} 
+              className="cursor-pointer" 
+              size={34} 
+            />
+            <Slider 
+              value={volume} 
+              onChange={(value) => setVolume(value)}
+            />
           </div>
         </div>
 
