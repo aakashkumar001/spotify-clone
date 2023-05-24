@@ -5,7 +5,6 @@ export async function POST(
   request: Request
 ) {
     try {
-    console.log('HELLOOO?')
     const body = await request.json();
 
     const record = await insertSongRecord(body);

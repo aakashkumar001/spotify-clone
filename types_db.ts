@@ -23,6 +23,20 @@ export interface Database {
           stripe_customer_id?: string | null
         }
       }
+      liked_songs: {
+        Row: {
+          song_id: number
+          user_id: string
+        }
+        Insert: {
+          song_id: number
+          user_id: string
+        }
+        Update: {
+          song_id?: number
+          user_id?: string
+        }
+      }
       prices: {
         Row: {
           active: boolean | null
@@ -206,7 +220,6 @@ export interface Database {
       pricing_plan_interval: "day" | "week" | "month" | "year"
       pricing_type: "one_time" | "recurring"
       subscription_status:
-        | "paused"
         | "trialing"
         | "active"
         | "canceled"

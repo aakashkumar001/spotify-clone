@@ -2,7 +2,6 @@
 
 import { TbPlaylist } from "react-icons/tb";
 import { AiOutlinePlus } from "react-icons/ai";
-import { useRouter } from "next/navigation";
 
 import useUploadModal from "@/hooks/useUploadModal";
 import { Song } from "@/types";
@@ -17,7 +16,6 @@ const Library: React.FC<LibraryProps> = ({
   data
 }) => {
   const uploadModal = useUploadModal();
-  const router = useRouter();
 
   return ( 
     <div className="flex flex-col">
@@ -30,7 +28,7 @@ const Library: React.FC<LibraryProps> = ({
       </div>
       <div className="flex flex-col gap-y-2 mt-4 px-3">
         {data.map((item) => (
-          <MediaItem onClick={() => router.push('/playlist/123')} key={item.id} data={item} />
+          <MediaItem key={item.id} data={item} />
         ))}
       </div>
     </div>

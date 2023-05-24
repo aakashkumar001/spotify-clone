@@ -29,7 +29,7 @@ const PlayButton: React.FC<PlayButtonProps> = ({
       return subscribeModal.onOpen();
     }
 
-    player.setSong(data);
+    player.setId(data.id);
   }
 
   return ( 

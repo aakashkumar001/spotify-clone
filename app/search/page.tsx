@@ -1,28 +1,36 @@
+import getSongsByTitle from "@/actions/getSongsByTitle";
+
 import Playlist from "@/components/MediaItem";
-import LikeButton from "@/components/LikeButton";
-import Input from "@/components/Input";
+import SearchInput from "@/components/SearchInput";
 import Header from "@/components/Header";
-import { getSongsByTitle } from "@/libs/supabaseClient";
+import LikeButton from "@/components/LikeButton";
+
 import { Song } from "@/types";
 
 export const revalidate = 0;
 
-const Search = async () => {
-  const songs = await getSongsByTitle('%mam%');
+interface SearchProps {
+  searchParams: { title: string }
+};
+
+const Search = async ({ searchParams }: SearchProps) => {
+  const songs = await getSongsByTitle(searchParams.title);
 
   return (
     <div className="bg-neutral-900 rounded-lg h-full w-full overflow-hidden overflow-y-auto">
       <Header className="from-bg-neutral-900">
         <div className="mb-2 flex flex-col gap-y-6">
           <h1 className="text-white text-3xl font-semibold">Search</h1>
-          <Input placeholder="What do you want to listen to?" />
+          <SearchInput />
         </div>
       </Header>
       <div className="flex flex-col gap-y-2 w-full px-6">
         {songs.map((song: Song) => (
           <div key={song.id} className="flex items-center gap-x-4 w-full">
-            <div className="flex-1"><Playlist data={song} /></div>
-            <div><LikeButton /></div>
+            <div className="flex-1">
+              <Playlist data={song} />
+            </div>
+            <LikeButton songId={song.id} />
           </div>
         ))}
       </div>

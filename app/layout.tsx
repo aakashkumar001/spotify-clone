@@ -1,15 +1,14 @@
 import { Figtree } from 'next/font/google'
 
-import { cookies, headers } from 'next/headers'
-import { createServerComponentSupabaseClient } from '@supabase/auth-helpers-nextjs'
+import getSongsByUserId from '@/actions/getSongsByUserId'
+import getActiveProductsWithPrices from '@/actions/getActiveProductsWithPrices'
 
 import Sidebar from '@/components/Sidebar'
 import ToasterProvider from '@/providers/ToasterProvider'
 import UserProvider from '@/providers/UserProvider'
-import PlayerProvider from '@/components/PlayerProvider'
 import ModalProvider from '@/providers/ModalProvider'
 import SupabaseProvider from '@/providers/SupabaseProvider'
-import { getActiveProductsWithPrices, getSongsByUserId } from '@/libs/supabaseClient'
+import Player from '@/components/Player'
 
 import './globals.css'
 
@@ -27,17 +26,8 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const supabase = createServerComponentSupabaseClient({
-    headers: headers,
-    cookies: cookies
-  });
-
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-
   const products = await getActiveProductsWithPrices();
-  const songs = await getSongsByUserId(session?.user?.id);
+  const userSongs = await getSongsByUserId();
 
   return (
     <html lang="en">
@@ -46,10 +36,10 @@ export default async function RootLayout({
         <SupabaseProvider>
           <UserProvider>
             <ModalProvider products={products} />
-            <Sidebar songs={songs}>
+            <Sidebar songs={userSongs}>
               {children}
             </Sidebar>
-            <PlayerProvider />
+            <Player />
           </UserProvider>
         </SupabaseProvider>
       </body>

@@ -13,7 +13,6 @@ import { useUser } from "@/hooks/useUser";
 import Modal from './Modal';
 import Input from './Input';
 import Button from './Button';
-import axios from "axios";
 
 const UploadModal = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -87,13 +86,19 @@ const UploadModal = () => {
 
       
       // Create record 
-      await axios.post('/api/songs', {
-        uuid: user.id,
-        title: values.title,
-        author: values.author,
-        imagePath: imageData.path,
-        songPath: songData.path,
-      });
+      const { error: supabaseError } = await supabaseClient
+        .from('songs')
+        .insert({
+          user_id: user.id,
+          title: values.title,
+          author: values.author,
+          image_path: imageData.path,
+          song_path: songData.path
+        });
+
+      if (supabaseError) {
+        return toast.error(supabaseError.message);
+      }
       
       router.refresh();
       setIsLoading(false);
