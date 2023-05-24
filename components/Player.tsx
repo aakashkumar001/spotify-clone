@@ -7,7 +7,7 @@ import { HiSpeakerWave, HiSpeakerXMark } from "react-icons/hi2";
 import { BsPlayFill, BsPauseFill } from "react-icons/bs";
 
 import usePlayer from "@/hooks/usePlayer";
-import useLoadSound from "@/hooks/useLoadSound";
+import useLoadSong from "@/hooks/useLoadSong";
 
 import MediaItem from "./MediaItem";
 import Slider from "./Slider";
@@ -18,10 +18,10 @@ const Player = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   
   const player = usePlayer();
-  const soundUrl = useLoadSound(player.song!);
+  const songUrl = useLoadSong(player.song!);
 
   const [play, { pause, sound }] = useSound(
-    soundUrl,
+    songUrl,
     { 
       volume: volume,
       onplay: () => setIsPlaying(true),

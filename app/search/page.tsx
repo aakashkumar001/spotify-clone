@@ -2,13 +2,13 @@ import Playlist from "@/components/MediaItem";
 import LikeButton from "@/components/LikeButton";
 import Input from "@/components/Input";
 import Header from "@/components/Header";
-import { getSongs } from "@/libs/supabaseClient";
+import { getSongsByTitle } from "@/libs/supabaseClient";
 import { Song } from "@/types";
 
 export const revalidate = 0;
 
 const Search = async () => {
-  const songs = await getSongs();
+  const songs = await getSongsByTitle('%mam%');
 
   return (
     <div className="bg-neutral-900 rounded-lg h-full w-full overflow-hidden overflow-y-auto">

@@ -1,5 +1,4 @@
 import Header from "@/components/Header";
-
 import ListItem from "@/components/ListItem";
 import SongItem from "@/components/SongItem";
 import { getSongs } from "@/libs/supabaseClient";
@@ -13,29 +12,6 @@ const list = [
     author: 'Antonio'
   },
 ]
-
-// const songs = [
-//   {
-//     name: 'Wow.',
-//     image: "https://media.pitchfork.com/photos/629a1d0bec6d212a5b6b705e/1:1/w_600/Post-Malone-Hollywoods-Bleeding.jpg",
-//     author: 'Post Malone'
-//   },
-//   {
-//     name: 'Wolves',
-//     image: "https://i1.sndcdn.com/artworks-000157549168-m5jgfu-t500x500.jpg",
-//     author: 'Kanye West'
-//   },
-//   {
-//     name: 'Till I Collapse',
-//     image: 'https://i.scdn.co/image/ab67616d0000b2736ca5c90113b30c3c43ffb8f4',
-//     author: 'Eminem'
-//   },
-//   {
-//     name: 'Hate It Or Love It',
-//     image: 'https://geo-media.beatsource.com/image_size/500x500/9/a/9/9a9fb40c-9926-4f65-b358-7b10307e2f23.jpg',
-//     author: 'The Game'
-//   },
-// ]
 
 export default async function Home() {
   const songs = await getSongs();

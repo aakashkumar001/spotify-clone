@@ -1,14 +1,15 @@
 import { Figtree } from 'next/font/google'
 
-import ModalProvider from '@/providers/ModalProvider'
-import SupabaseProvider from '@/providers/SupabaseProvider'
+import { cookies, headers } from 'next/headers'
+import { createServerComponentSupabaseClient } from '@supabase/auth-helpers-nextjs'
 
-import Player from '@/components/Player'
 import Sidebar from '@/components/Sidebar'
 import ToasterProvider from '@/providers/ToasterProvider'
 import UserProvider from '@/providers/UserProvider'
-import { getActiveProductsWithPrices, getSongs } from '@/libs/supabaseClient'
 import PlayerProvider from '@/components/PlayerProvider'
+import ModalProvider from '@/providers/ModalProvider'
+import SupabaseProvider from '@/providers/SupabaseProvider'
+import { getActiveProductsWithPrices, getSongsByUserId } from '@/libs/supabaseClient'
 
 import './globals.css'
 
@@ -26,8 +27,17 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const supabase = createServerComponentSupabaseClient({
+    headers: headers,
+    cookies: cookies
+  });
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
   const products = await getActiveProductsWithPrices();
-  const songs = await getSongs();
+  const songs = await getSongsByUserId(session?.user?.id);
 
   return (
     <html lang="en">
