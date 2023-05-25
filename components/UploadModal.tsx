@@ -57,7 +57,10 @@ const UploadModal = () => {
       const uniqueID = uniqid();
 
       // Upload song
-      const { data: songData, error: songError } = await supabaseClient
+      const { 
+        data: songData, 
+        error: songError 
+      } = await supabaseClient
         .storage
         .from('songs')
         .upload(`song-${values.title}-${uniqueID}`, songFile, {
@@ -71,7 +74,10 @@ const UploadModal = () => {
       }
 
       // Upload image
-      const { data: imageData, error: imageError } = await supabaseClient
+      const { 
+        data: imageData, 
+        error: imageError
+      } = await supabaseClient
         .storage
         .from('images')
         .upload(`image-${values.title}-${uniqueID}`, imageFile, {
@@ -119,7 +125,10 @@ const UploadModal = () => {
       isOpen={uploadModal.isOpen}
       onChange={onChange}
     >
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-y-4">
+      <form 
+        onSubmit={handleSubmit(onSubmit)} 
+        className="flex flex-col gap-y-4"
+      >
         <Input
           id="title"
           disabled={isLoading}

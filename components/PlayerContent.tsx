@@ -107,7 +107,16 @@ const PlayerContent: React.FC<PlayerContentProps> = ({
           </div>
         </div>
 
-        <div className="flex md:hidden col-auto w-full justify-end items-center">
+        <div 
+          className="
+            flex 
+            md:hidden 
+            col-auto 
+            w-full 
+            justify-end 
+            items-center
+          "
+        >
           <div 
             onClick={handlePlay} 
             className="

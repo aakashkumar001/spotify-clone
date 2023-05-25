@@ -2,7 +2,6 @@ import { Figtree } from 'next/font/google'
 
 import getSongsByUserId from '@/actions/getSongsByUserId'
 import getActiveProductsWithPrices from '@/actions/getActiveProductsWithPrices'
-
 import Sidebar from '@/components/Sidebar'
 import ToasterProvider from '@/providers/ToasterProvider'
 import UserProvider from '@/providers/UserProvider'

@@ -38,7 +38,16 @@ const SongItem: React.FC<SongItemProps> = ({
         p-3
       "
     >
-      <div className="relative aspect-square w-full h-full rounded-md overflow-hidden">
+      <div 
+        className="
+          relative 
+          aspect-square 
+          w-full
+          h-full 
+          rounded-md 
+          overflow-hidden
+        "
+      >
         <Image
           className="object-cover"
           src={imagePath || '/images/music-placeholder.png'}
@@ -50,7 +59,15 @@ const SongItem: React.FC<SongItemProps> = ({
         <p className="font-semibold truncate w-full">
           {data.title}
         </p>
-        <p className="text-neutral-400 text-sm pb-4 w-full truncate">
+        <p 
+          className="
+            text-neutral-400 
+            text-sm 
+            pb-4 
+            w-full 
+            truncate
+          "
+        >
           By {data.author}
         </p>
       </div>
