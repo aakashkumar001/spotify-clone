@@ -30,41 +30,6 @@ const PlayerContent: React.FC<PlayerContentProps> = ({
   const Icon = isPlaying ? BsPauseFill : BsPlayFill;
   const VolumeIcon = volume === 0 ? HiSpeakerXMark : HiSpeakerWave;
 
-  const [play, { pause, sound }] = useSound(
-    songUrl,
-    { 
-      volume: volume,
-      onplay: () => setIsPlaying(true),
-      onend: () => setIsPlaying(false),
-      onpause: () => setIsPlaying(false),
-      format: ['mp3']
-    }
-  );
-
-  useEffect(() => {
-    sound?.play();
-    
-    return () => {
-      sound?.unload();
-    }
-  }, [sound]);
-
-  const handlePlay = () => {
-    if (!isPlaying) {
-      play();
-    } else {
-      pause();
-    }
-  }
-
-  const toggleMute = () => {
-    if (volume === 0) {
-      setVolume(1);
-    } else {
-      setVolume(0);
-    }
-  }
-
   const onPlayNext = () => {
     if (player.ids.length === 0) {
       return;
@@ -95,18 +60,77 @@ const PlayerContent: React.FC<PlayerContentProps> = ({
     player.setId(previousSong);
   }
 
+  const [play, { pause, sound }] = useSound(
+    songUrl,
+    { 
+      volume: volume,
+      onplay: () => setIsPlaying(true),
+      onend: () => {
+        setIsPlaying(false);
+        onPlayNext();
+      },
+      onpause: () => setIsPlaying(false),
+      format: ['mp3']
+    }
+  );
+
+  useEffect(() => {
+    sound?.play();
+    
+    return () => {
+      sound?.unload();
+    }
+  }, [sound]);
+
+  const handlePlay = () => {
+    if (!isPlaying) {
+      play();
+    } else {
+      pause();
+    }
+  }
+
+  const toggleMute = () => {
+    if (volume === 0) {
+      setVolume(1);
+    } else {
+      setVolume(0);
+    }
+  }
+
   return ( 
-    <div className="grid grid-cols-1 md:grid-cols-3">
-        <div className="hidden md:flex w-full justify-start">
+    <div className="grid grid-cols-2 md:grid-cols-3 h-full">
+        <div className="flex w-full justify-start">
           <div className="flex items-center gap-x-4">
             <MediaItem data={song} />
             <LikeButton songId={song.id} />
           </div>
         </div>
 
+        <div className="flex md:hidden col-auto w-full justify-end items-center">
+          <div 
+            onClick={handlePlay} 
+            className="
+              h-10
+              w-10
+              flex 
+              items-center 
+              justify-center 
+              rounded-full 
+              bg-white 
+              p-1 
+              cursor-pointer
+            "
+          >
+            <Icon size={30} className="text-black" />
+          </div>
+        </div>
+
         <div 
           className="
-            flex 
+            hidden
+            h-full
+            md:flex 
             justify-center 
             items-center 
             w-full 
@@ -129,7 +153,9 @@ const PlayerContent: React.FC<PlayerContentProps> = ({
             className="
               flex 
               items-center 
-              justify-center 
+              justify-center
+              h-10
+              w-10 
               rounded-full 
               bg-white 
               p-1 
