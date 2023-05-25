@@ -1,41 +1,8 @@
-"use client";
-
 import { FaPlay } from "react-icons/fa";
 
-import { useUser } from "@/hooks/useUser";
-import useAuthModal from "@/hooks/useAuthModal";
-import useSubscribeModal from "@/hooks/useSubscribeModal";
-import { Song } from "@/types";
-import usePlayer from "@/hooks/usePlayer";
-
-interface PlayButtonProps {
-  data: Song
-}
-
-const PlayButton: React.FC<PlayButtonProps> = ({
-  data
-}) => {
-  const player = usePlayer();
-  const authModal = useAuthModal();
-  const subscribeModal = useSubscribeModal();
-  const { user, isLoading, subscription } = useUser();
-
-  const handlePlay = () => {
-    if (!user) {
-      return authModal.onOpen();
-    }
-
-    if (!subscription) {
-      return subscribeModal.onOpen();
-    }
-
-    player.setId(data.id);
-  }
-
+const PlayButton = () => {
   return ( 
     <button
-      disabled={isLoading}
-      onClick={handlePlay}
       className="
         transition 
         opacity-0 

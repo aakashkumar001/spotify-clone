@@ -6,11 +6,13 @@ import { BsPauseFill, BsPlayFill } from "react-icons/bs";
 import { HiSpeakerWave, HiSpeakerXMark } from "react-icons/hi2";
 import { AiFillStepBackward, AiFillStepForward } from "react-icons/ai";
 
+import { Song } from "@/types";
+import usePlayer from "@/hooks/usePlayer";
+
 import LikeButton from "./LikeButton";
 import MediaItem from "./MediaItem";
 import Slider from "./Slider";
 
-import { Song } from "@/types";
 
 interface PlayerContentProps {
   song: Song;
@@ -21,6 +23,7 @@ const PlayerContent: React.FC<PlayerContentProps> = ({
   song, 
   songUrl
 }) => {
+  const player = usePlayer();
   const [volume, setVolume] = useState(1);
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -62,6 +65,36 @@ const PlayerContent: React.FC<PlayerContentProps> = ({
     }
   }
 
+  const onPlayNext = () => {
+    if (player.ids.length === 0) {
+      return;
+    }
+
+    const currentIndex = player.ids.findIndex((id) => id === player.activeId);
+    const nextSong = player.ids[currentIndex + 1];
+
+    if (!nextSong) {
+      return player.setId(player.ids[0]);
+    }
+
+    player.setId(nextSong);
+  }
+
+  const onPlayPrevious = () => {
+    if (player.ids.length === 0) {
+      return;
+    }
+
+    const currentIndex = player.ids.findIndex((id) => id === player.activeId);
+    const previousSong = player.ids[currentIndex - 1];
+
+    if (!previousSong) {
+      return player.setId(player.ids[player.ids.length - 1]);
+    }
+
+    player.setId(previousSong);
+  }
+
   return ( 
     <div className="grid grid-cols-1 md:grid-cols-3">
         <div className="hidden md:flex w-full justify-start">
@@ -82,6 +115,7 @@ const PlayerContent: React.FC<PlayerContentProps> = ({
           "
         >
           <AiFillStepBackward
+            onClick={onPlayPrevious}
             size={30} 
             className="
               text-neutral-400 
@@ -104,7 +138,8 @@ const PlayerContent: React.FC<PlayerContentProps> = ({
           >
             <Icon size={30} className="text-black" />
           </div>
-          <AiFillStepForward 
+          <AiFillStepForward
+            onClick={onPlayNext}
             size={30} 
             className="
               text-neutral-400 

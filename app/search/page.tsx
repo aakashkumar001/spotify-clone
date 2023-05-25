@@ -1,11 +1,8 @@
 import getSongsByTitle from "@/actions/getSongsByTitle";
-
-import Playlist from "@/components/MediaItem";
 import SearchInput from "@/components/SearchInput";
 import Header from "@/components/Header";
-import LikeButton from "@/components/LikeButton";
 
-import { Song } from "@/types";
+import SearchContent from "./components/SearchContent";
 
 export const revalidate = 0;
 
@@ -24,16 +21,7 @@ const Search = async ({ searchParams }: SearchProps) => {
           <SearchInput />
         </div>
       </Header>
-      <div className="flex flex-col gap-y-2 w-full px-6">
-        {songs.map((song: Song) => (
-          <div key={song.id} className="flex items-center gap-x-4 w-full">
-            <div className="flex-1">
-              <Playlist data={song} />
-            </div>
-            <LikeButton songId={song.id} />
-          </div>
-        ))}
-      </div>
+      <SearchContent songs={songs} />
     </div>
   );
 }

@@ -1,10 +1,9 @@
 import Image from "next/image";
 
 import getLikedSongs from "@/actions/getLikedSongs";
-
 import Header from "@/components/Header";
-import MediaItem from "@/components/MediaItem";
-import LikeButton from "@/components/LikeButton";
+
+import LikedContent from "./components/LikedContent";
 
 export const revalidate = 0;
 
@@ -31,16 +30,7 @@ const Liked = async () => {
           </div>
         </div>
       </Header>
-      <div className="flex flex-col gap-y-2 w-full p-6">
-        {songs.map((song: any) => (
-          <div key={song.id} className="flex items-center gap-x-4 w-full">
-            <div className="flex-1">
-              <MediaItem data={song} />
-            </div>
-            <LikeButton songId={song.id} />
-          </div>
-        ))}
-      </div>
+      <LikedContent songs={songs} />
     </div>
   );
 }
