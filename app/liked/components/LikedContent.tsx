@@ -5,9 +5,9 @@ import { useRouter } from "next/navigation";
 
 import { Song } from "@/types";
 import { useUser } from "@/hooks/useUser";
-import usePlayer from "@/hooks/usePlayer";
 import MediaItem from "@/components/MediaItem";
 import LikeButton from "@/components/LikeButton";
+import useOnPlay from "@/hooks/useOnPlay";
 
 interface LikedContentProps {
   songs: Song[];
@@ -16,14 +16,10 @@ interface LikedContentProps {
 const LikedContent: React.FC<LikedContentProps> = ({
   songs
 }) => {
-  const player = usePlayer();
   const router = useRouter();
   const { isLoading, user } = useUser();
 
-  const onPlay = (id: string) => {
-    player.setId(id);
-    player.setIds(songs.map((song) => song.id));
-  }
+  const onPlay = useOnPlay(songs);
 
   useEffect(() => {
     if (!isLoading && !user) {
