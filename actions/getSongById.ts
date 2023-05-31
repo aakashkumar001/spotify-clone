@@ -1,11 +1,10 @@
-import { createServerComponentSupabaseClient } from "@supabase/auth-helpers-nextjs";
-import { cookies, headers } from "next/headers";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
 
 import { Song } from "@/types";
 
 const getSongById = async (id: string): Promise<Song> => {
-  const supabase = createServerComponentSupabaseClient({
-    headers: headers,
+  const supabase = createServerComponentClient({
     cookies: cookies
   });
 
