@@ -3,7 +3,7 @@
 import { useMemo } from "react";
 import {usePathname} from "next/navigation";
 import {HiHome} from "react-icons/hi";
-import {BiSearch} from "react-icons/Bi"
+import {BiSearch} from "react-icons/bi"
 import Box from "@/components/Box"
 import SidebarItem from "./SidebarItem";
 import Library from './Library'
