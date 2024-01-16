@@ -31,9 +31,9 @@ const Library: React.FC<LibraryProps> = ({
       return authModal.onOpen();
     }
 
-    if (!subscription) {
-      return subscribeModal.onOpen();
-    }
+    // if (!subscription) {
+    //   return subscribeModal.onOpen();
+    // }
 
     return uploadModal.onOpen();
   }
